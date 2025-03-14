@@ -1,0 +1,9 @@
+version: '3'
+services:
+  ctf_challenge:
+    build: .
+    ports:
+      - "8080:80"
+    restart: always
+    volumes:
+      - .:/var/www/html
