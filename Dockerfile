@@ -1,13 +1,20 @@
-FROM php:8.1-apache
+# Use official PHP image with Apache
+FROM php:8.2-apache
 
-RUN a2enmod rewrite
-
-COPY apache-config.conf /etc/apache2/sites-available/000-default.conf
-
+# Set working directory
 WORKDIR /var/www/html
 
-COPY . .
+# Copy source code to container
+COPY . /var/www/html
 
-EXPOSE 80
+# Set up Apache configurations
+COPY apache-config.conf /etc/apache2/sites-available/000-default.conf
 
+# Enable mod_rewrite for .htaccess
+RUN a2enmod rewrite
+
+# Expose port 5000 for access
+EXPOSE 5000
+
+# Start Apache
 CMD ["apache2-foreground"]
